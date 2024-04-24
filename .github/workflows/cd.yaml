@@ -32,10 +32,10 @@ jobs:
           HLM_SECRETS=($(find "${base_dir}" -maxdepth 1 -type f -iname "$SECRETS_PATTERN"))
           command="helm upgrade --install --wait --wait-for-jobs --timeout 10m --namespace $HLM_NAMESPACE --create-namespace --version $HLM_CHART_VERSION"
           for value in "${HLM_VALUES[@]}"; do
-            command="$(printf '%s --values %s' $command $value)"
+            command="$(printf '%s --values %s' "$command" "$value")"
           done
           for value in "${HLM_SECRETS[@]}"; do
-            command="$(printf '%s --values secrets://%s' $command $value)"
+            command="$(printf '%s --values secrets://%s' "$command" "$value")"
           done
-          command="$(printf '%s %s %s' $command $HLM_RELEASE $HLM_REGISTRY)"
-          printf '%s' $command
+          command="$(printf '%s %s %s' "$command" "$HLM_RELEASE" "$HLM_REGISTRY")"
+          printf '%s' "$command"
