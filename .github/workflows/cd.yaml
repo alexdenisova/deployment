@@ -7,6 +7,12 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  VALUES_PATTERN: "*values.yaml"
+  SECRETS_PATTERN: "*sops.yaml"
+  HLM_RELEASE: app
+  HLM_REGISTRY: "oci://"
+  HLM_CHART_VERSION: "v1"
+  HLM_NAMESPACE: pantry-tracker
 
 jobs:
   deploy:
@@ -20,3 +26,16 @@ jobs:
           sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
           helm plugin install https://github.com/jkroepke/helm-secrets --version v4.6.0
+
+          base_dir=$(realpath .)
+          HLM_VALUES=($(find "${base_dir}" -maxdepth 1 -type f -iname "$VALUES_PATTERN"))
+          HLM_SECRETS=($(find "${base_dir}" -maxdepth 1 -type f -iname "$SECRETS_PATTERN"))
+          command="helm upgrade --install --wait --wait-for-jobs --timeout 10m --namespace $HLM_NAMESPACE --create-namespace --version $HLM_CHART_VERSION"
+          for value in "${HLM_VALUES[@]}"; do
+            command="$(printf '%s --values %s' $command $value)"
+          done
+          for value in "${HLM_SECRETS[@]}"; do
+            command="$(printf '%s --values secrets://%s' $command $value)"
+          done
+          command="$(printf '%s %s %s' $HLM_RELEASE $HLM_REGISTRY)"
+          printf '%s' $command
