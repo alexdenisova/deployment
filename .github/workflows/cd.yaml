@@ -37,5 +37,5 @@ jobs:
           for value in "${HLM_SECRETS[@]}"; do
             command="$(printf '%s --values secrets://%s' $command $value)"
           done
-          command="$(printf '%s %s %s' $HLM_RELEASE $HLM_REGISTRY)"
+          command="$(printf '%s %s %s' $command $HLM_RELEASE $HLM_REGISTRY)"
           printf '%s' $command
