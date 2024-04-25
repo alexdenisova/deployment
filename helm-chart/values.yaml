@@ -1,0 +1,79 @@
+---
+registry_secret:
+  name: registrypullsecret
+  data: ""
+
+backend:
+  name: backend
+  replicaCount: 1
+  annotations: {}
+  resources:
+    limits:
+      memory: 256Mi
+      cpu: 200m
+    requests:
+      memory: 128Mi
+      cpu: 100m
+  image:
+    repository: ghcr.io/alexdenisova/pantry-tracker-backend
+    pullPolicy: Always
+    # tag: ""
+    tag: 0.2.0
+  # livenessPath: &livenessPath /health
+  # readinessPath: *livenessPath
+  command:
+    # - sleep
+    # - 100d
+    - pantry-tracker
+    - run
+  port: 8080
+  configMapValues:
+    APP__SOCKET: 0.0.0.0:8080
+    APP__DEBUG: "true"
+  secretValues:
+    # APP__DATABASE_URL: ""
+    # APP__REDIS_URL: ""
+    
+
+backendIngress:
+  enabled: true
+  host: &host "pantry-tracker.com"
+  className: &ingress_class "ingress-nginx"
+  tls:
+    secretName: backend-tls
+    key: ""
+    certificate: ""
+  backendRootPath: /api
+
+frontend:
+  name: frontend
+  replicaCount: 1
+  annotations: {}
+  resources:
+    limits:
+      memory: 128Mi
+      cpu: 100m
+    requests:
+      memory: 64Mi
+      cpu: 50m
+  image:
+    repository: ghcr.io/alexdenisova/pantry-tracker-frontend
+    pullPolicy: Always
+    # tag: ""
+    tag: 0.0.0
+  port: 5137
+
+frontendIngress:
+  enabled: true
+  host: *host
+  className: *ingress_class
+  tls:
+    secretName: frontend-tls
+    key: ""
+    certificate: ""
+
+postgresMigrations:
+  name: postgres-migrations
+  command:
+    - pantry-tracker
+    - migrate

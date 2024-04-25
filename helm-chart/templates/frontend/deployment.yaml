@@ -1,0 +1,3 @@
+{{- with .Values.frontend -}}
+{{- include "pantry-tracker.frontendDeployment" (list $ .) }}
+{{- end -}}

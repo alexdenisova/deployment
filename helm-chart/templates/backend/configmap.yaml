@@ -1,0 +1,3 @@
+{{- with .Values.backend -}}
+{{- include "pantry-tracker.configMap" (list $ .) }}
+{{- end -}}
