@@ -13,11 +13,15 @@ jobs:
         id: filter
         with:
           filters: |
+            all:
+              - 'helm-charts/**'
+              - 'values/**'
             pantry-tracker:
               - 'helm-charts/pantry-tracker/**'
               - 'values/pantry-tracker/**'
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
+        if: steps.filter.outputs.all == 'true'
         with:
           gpg_private_key: ${{ secrets.HLM_GPG_PRIVATE_KEY }}
       - name: Deploy Pantry Tracker
