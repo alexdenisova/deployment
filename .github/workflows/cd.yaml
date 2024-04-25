@@ -18,6 +18,7 @@ jobs:
               - 'values/pantry-tracker/**'
       - name: Deploy Pantry Tracker
         uses: ./.github/actions/deploy
+        secrets: inherit
         with:
           helm_chart: "helm-charts/pantry-tracker"
           values_path: "values/pantry-tracker"
