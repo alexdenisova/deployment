@@ -24,4 +24,4 @@ jobs:
           release_name: "pantry-tracker"
           namespace: "pantry-tracker"
           kubeconfig_b64: $HLM_KUBECONFIG_B64
-          gpg_key_b64: $HLM_GPG_KEY_B64
+          gpg_key_b64: $TESTING_SECRETS
