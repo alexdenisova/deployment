@@ -30,6 +30,7 @@ runs:
         helm plugin install https://github.com/jkroepke/helm-secrets --version v4.6.0
 
         values_dir=$(realpath ${{ inputs.values_path }})
+        echo values_dir $values_dir "$VALUES_PATTERN"
         HLM_VALUES=($(find "${values_dir}" -maxdepth 1 -type f -iname "$VALUES_PATTERN"))
         HLM_SECRETS=($(find "${values_dir}" -maxdepth 1 -type f -iname "$SECRETS_PATTERN"))
         command="helm upgrade --install --wait --wait-for-jobs --timeout 10m --namespace ${{ inputs.namespace }} --create-namespace"
