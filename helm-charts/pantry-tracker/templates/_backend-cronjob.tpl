@@ -26,20 +26,20 @@ spec:
             - name: {{ $.Values.registry_secret.name }}
           containers:
             - name: {{ .name }}
-              image: "{{ $.Values.backend.image.repository }}:{{ $.Values.backend.image.tag }}"
-              imagePullPolicy: {{ $.Values.backend.image.pullPolicy }}
+              image: "{{ $.Values.pantryTrackerBackend.image.repository }}:{{ $.Values.pantryTrackerBackend.image.tag }}"
+              imagePullPolicy: {{ $.Values.pantryTrackerBackend.image.pullPolicy }}
               command:
                 {{- toYaml .command | nindent 16 }}
               envFrom:
                 - configMapRef:
-                    name: {{ $.Values.backend.name }}
+                    name: {{ $.Values.pantryTrackerBackend.name }}
                     optional: false
                 - secretRef:
-                    name: {{ $.Values.backend.name }}
+                    name: {{ $.Values.pantryTrackerBackend.name }}
                     optional: false
               ports:
                 - name: {{ get (include "pantry-tracker.servicePort" $ | fromYaml) "name" }}
-                  containerPort: {{ $.Values.backend.port }}
+                  containerPort: {{ $.Values.pantryTrackerBackend.port }}
                   protocol: {{ get (include "pantry-tracker.servicePort" $ | fromYaml) "protocol" }}
               resources:
                 {{- toYaml .resources | nindent 16 }}

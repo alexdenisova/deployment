@@ -1,0 +1,45 @@
+name: Helm Chart Deploy
+
+env:
+  VALUES_PATTERN: "*values.yaml"
+  SECRETS_PATTERN: "*sops.yaml"
+
+inputs:
+  helm_chart:
+    description: Helm chart path
+    required: true
+  values_path:
+    description: Path to directory with values
+    required: true
+  release_name:
+    description: Release name
+    required: false
+    default: app
+  namespace:
+    description: Release namespace
+    required: true
+  
+runs:
+  using: composite
+  steps:
+    - run: |-
+        curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+        sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+        helm plugin install https://github.com/jkroepke/helm-secrets --version v4.6.0
+
+        values_dir=$(realpath ${{ inputs.values_path }})
+        HLM_VALUES=($(find "${values_dir}" -maxdepth 1 -type f -iname "$VALUES_PATTERN"))
+        HLM_SECRETS=($(find "${values_dir}" -maxdepth 1 -type f -iname "$SECRETS_PATTERN"))
+        command="helm upgrade --install --wait --wait-for-jobs --timeout 10m --namespace ${{ inputs.namespace }} --create-namespace"
+        for value in "${HLM_VALUES[@]}"; do
+          command="$(printf '%s --values %s' "$command" "$value")"
+        done
+        for value in "${HLM_SECRETS[@]}"; do
+          command="$(printf '%s --values secrets://%s' "$command" "$value")"
+        done
+        for i in $(find "${values_dir}" -maxdepth 1 -type f -iname '*.env' | sort); do
+          eval $(sed -e 's/^/export /' "${i}")
+        done
+        command="$(printf '%s %s %s' "$command" "${{ inputs.release_name }}" "${{ inputs.helm_chart }}")"
+        printf '%s' "$command"

@@ -4,37 +4,22 @@ on:
   push:
     branches: [main]
 
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
-  VALUES_PATTERN: "*values.yaml"
-  SECRETS_PATTERN: "*sops.yaml"
-  HLM_RELEASE: app
-  HLM_REGISTRY: "oci://"
-  HLM_CHART_VERSION: "v1"
-  HLM_NAMESPACE: pantry-tracker
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Deploy
-        run: |-
-          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-          sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-
-          helm plugin install https://github.com/jkroepke/helm-secrets --version v4.6.0
-
-          base_dir=$(realpath .)
-          HLM_VALUES=($(find "${base_dir}" -maxdepth 1 -type f -iname "$VALUES_PATTERN"))
-          HLM_SECRETS=($(find "${base_dir}" -maxdepth 1 -type f -iname "$SECRETS_PATTERN"))
-          command="helm upgrade --install --wait --wait-for-jobs --timeout 10m --namespace $HLM_NAMESPACE --create-namespace --version $HLM_CHART_VERSION"
-          for value in "${HLM_VALUES[@]}"; do
-            command="$(printf '%s --values %s' "$command" "$value")"
-          done
-          for value in "${HLM_SECRETS[@]}"; do
-            command="$(printf '%s --values secrets://%s' "$command" "$value")"
-          done
-          command="$(printf '%s %s %s' "$command" "$HLM_RELEASE" "$HLM_REGISTRY")"
-          printf '%s' "$command"
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            pantry-tracker:
+              - 'helm-charts/pantry-tracker/**'
+              - 'values/pantry-tracker/**'
+      - name: Deploy Pantry Tracker
+        uses: ./.github/actions/deploy.yaml
+        with:
+          helm_chart: "helm-charts/pantry-tracker"
+          values_path: "values/pantry-tracker"
+          release_name: "pantry-tracker"
+          namespace: "pantry-tracker"

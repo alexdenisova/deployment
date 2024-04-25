@@ -3,7 +3,7 @@ registry_secret:
   name: registrypullsecret
   data: ""
 
-backend:
+pantryTrackerBackend:
   name: backend
   replicaCount: 1
   annotations: {}
@@ -45,7 +45,7 @@ backendIngress:
     certificate: ""
   backendRootPath: /api
 
-frontend:
+pantryTrackerFrontend:
   name: frontend
   replicaCount: 1
   annotations: {}
