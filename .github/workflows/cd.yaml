@@ -17,7 +17,7 @@ jobs:
               - 'helm-charts/pantry-tracker/**'
               - 'values/pantry-tracker/**'
       - name: Deploy Pantry Tracker
-        uses: ./.github/actions/deploy.yaml
+        uses: ./.github/actions/deploy
         with:
           helm_chart: "helm-charts/pantry-tracker"
           values_path: "values/pantry-tracker"
