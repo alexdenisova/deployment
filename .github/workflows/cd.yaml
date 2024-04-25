@@ -6,7 +6,6 @@ on:
 
 jobs:
   deploy:
-    secrets: inherit
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -24,6 +23,5 @@ jobs:
           values_path: "values/pantry-tracker"
           release_name: "pantry-tracker"
           namespace: "pantry-tracker"
-          kubeconfig_b64: $HLM_KUBECONFIG_B64
-          gpg_key_b64: $TESTING_SECRETS
-
+          kubeconfig_b64: ${{ secrets.HLM_KUBECONFIG_B64 }}
+          gpg_key_b64: ${{ secrets.TESTING_SECRETS }}
