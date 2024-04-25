@@ -28,9 +28,6 @@ inputs:
     description: Wildcard for secrets files
     required: false
     default: "*sops.yaml"
-  gpg_key:
-    description: Base64 encoded private key
-    required: true
 
 runs:
   using: composite
@@ -48,11 +45,6 @@ runs:
         mkdir ~/.kube
         echo "${{ inputs.kubeconfig_b64 }}" | base64 -d > ~/.kube/config
         export KUBECONFIG=$(realpath "~/.kube/config")
-        echo "${{ inputs.gpg_key_b64 }}" | base64 -d > private.key
-        gpg --import private.key
-
-        export GPG_TTY=$(tty)
-        sops -d test.sops.yaml
 
         values_dir=$(realpath ${{ inputs.values_path }})
         HLM_VALUES=($(find "${values_dir}" -maxdepth 1 -type f -iname "${{ inputs.values_pattern }}"))

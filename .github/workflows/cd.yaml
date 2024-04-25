@@ -19,17 +19,7 @@ jobs:
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
         with:
-          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-      - name: List keys
-        run: gpg -K
-      - name: sops check
-        run: |-
-          curl -sLo sops https://github.com/mozilla/sops/releases/download/v3.7.2/sops-v3.7.2.linux.amd64
-          sudo mv ./sops /usr/local/bin/sops
-          chmod +x /usr/local/bin/sops
-
-          sops -e test.yaml
-          sops -d test.sops.yaml
+          gpg_private_key: ${{ secrets.HLM_GPG_PRIVATE_KEY }}
       - name: Deploy Pantry Tracker
         uses: ./.github/actions/deploy
         with:
@@ -38,5 +28,3 @@ jobs:
           release_name: "pantry-tracker"
           namespace: "pantry-tracker"
           kubeconfig_b64: ${{ secrets.HLM_KUBECONFIG_B64 }}
-          gpg_key_b64: ${{ secrets.HLM_GPG_KEY_B64 }}
-          gpg_key: ${{ secrets.GPG_PRIVATE_KEY }}
