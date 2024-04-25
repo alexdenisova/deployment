@@ -1,4 +1,0 @@
-pantryTrackerFrontend:
-  image:
-    repository: ghcr.io/alexdenisova/pantry-tracker-frontend
-    tag: 0.0.0
