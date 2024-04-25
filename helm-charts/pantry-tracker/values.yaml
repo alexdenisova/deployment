@@ -19,8 +19,8 @@ pantryTrackerBackend:
     pullPolicy: Always
     # tag: ""
     tag: 0.2.0
-  # livenessPath: &livenessPath /health
-  # readinessPath: *livenessPath
+  livenessPath: &livenessPath /health
+  readinessPath: *livenessPath
   command:
     # - sleep
     # - 100d

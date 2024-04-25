@@ -22,6 +22,7 @@ jobs:
           gpg_private_key: ${{ secrets.HLM_GPG_PRIVATE_KEY }}
       - name: Deploy Pantry Tracker
         uses: ./.github/actions/deploy
+        if: steps.filter.outputs.pantry-tracker == 'true'
         with:
           helm_chart: "helm-charts/pantry-tracker"
           values_path: "values/pantry-tracker"
