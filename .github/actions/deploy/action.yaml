@@ -14,6 +14,12 @@ inputs:
   namespace:
     description: Release namespace
     required: true
+  kubeconfig_b64:
+    description: Base64 encoded kubeconfig
+    required: true
+  gpg_key_b64:
+    description: Base64 encoded private key
+    required: true
   values_pattern:
     description: Wildcard for values files
     required: false
@@ -32,9 +38,11 @@ runs:
         sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
         helm plugin install https://github.com/jkroepke/helm-secrets --version v4.6.0
+        echo "${{ inputs.kubeconfig }}" | base64 -d > ~/.kube/config
+        echo "${{ inputs.gpg_key_b64 }}" | base64 -d > private.key
+        gpg --import private.key
 
         values_dir=$(realpath ${{ inputs.values_path }})
-        echo values_dir $values_dir "${{ inputs.values_pattern }}"
         HLM_VALUES=($(find "${values_dir}" -maxdepth 1 -type f -iname "${{ inputs.values_pattern }}"))
         HLM_SECRETS=($(find "${values_dir}" -maxdepth 1 -type f -iname "${{ inputs.secrets_pattern }}"))
         command="helm upgrade --install --wait --wait-for-jobs --timeout 10m --namespace ${{ inputs.namespace }} --create-namespace"
