@@ -1,9 +1,5 @@
 name: Helm Chart Deploy
 
-env:
-  VALUES_PATTERN: "*values.yaml"
-  SECRETS_PATTERN: "*sops.yaml"
-
 inputs:
   helm_chart:
     description: Helm chart path
@@ -18,6 +14,14 @@ inputs:
   namespace:
     description: Release namespace
     required: true
+  values_pattern:
+    description: Wildcard for values files
+    required: false
+    default: "*values.yaml"
+  secrets_pattern:
+    description: Wildcard for secrets files
+    required: false
+    default: "*sops.yaml"
 
 runs:
   using: composite
@@ -30,9 +34,9 @@ runs:
         helm plugin install https://github.com/jkroepke/helm-secrets --version v4.6.0
 
         values_dir=$(realpath ${{ inputs.values_path }})
-        echo values_dir $values_dir "$VALUES_PATTERN"
-        HLM_VALUES=($(find "${values_dir}" -maxdepth 1 -type f -iname "$VALUES_PATTERN"))
-        HLM_SECRETS=($(find "${values_dir}" -maxdepth 1 -type f -iname "$SECRETS_PATTERN"))
+        echo values_dir $values_dir "${{ inputs.values_pattern }}"
+        HLM_VALUES=($(find "${values_dir}" -maxdepth 1 -type f -iname "${{ inputs.values_pattern }}"))
+        HLM_SECRETS=($(find "${values_dir}" -maxdepth 1 -type f -iname "${{ inputs.secrets_pattern }}"))
         command="helm upgrade --install --wait --wait-for-jobs --timeout 10m --namespace ${{ inputs.namespace }} --create-namespace"
         for value in "${HLM_VALUES[@]}"; do
           command="$(printf '%s --values %s' "$command" "$value")"
