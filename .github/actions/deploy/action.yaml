@@ -47,7 +47,6 @@ runs:
 
         mkdir ~/.kube
         echo "${{ inputs.kubeconfig_b64 }}" | base64 -d > ~/.kube/config
-        export KUBECONFIG=$(realpath "~/.kube/config")
     - name: Upgrade Helm Chart
       shell: bash
       run: |-
