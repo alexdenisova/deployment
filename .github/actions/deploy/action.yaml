@@ -40,9 +40,7 @@ runs:
         helm plugin install https://github.com/jkroepke/helm-secrets --version v4.6.0
         mkdir ~/.kube
         echo "${{ inputs.kubeconfig }}" | base64 -d > ~/.kube/config
-        echo key "${{ inputs.gpg_key_b64 }}" env $TESTING_SECRETS
         echo "${{ inputs.gpg_key_b64 }}" | base64 -d > private.key
-        cat private.key
         gpg --import private.key
 
         values_dir=$(realpath ${{ inputs.values_path }})
