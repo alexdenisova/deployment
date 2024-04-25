@@ -9,7 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: dorny/paths-filter@v3
+      - name: Determine changed files 
+        uses: dorny/paths-filter@v3
         id: filter
         with:
           filters: |

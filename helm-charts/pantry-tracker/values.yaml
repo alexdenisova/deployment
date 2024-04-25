@@ -17,13 +17,10 @@ pantryTrackerBackend:
   image:
     repository: ghcr.io/alexdenisova/pantry-tracker-backend
     pullPolicy: Always
-    # tag: ""
-    tag: 0.2.0
+    tag: ""
   livenessPath: &livenessPath /health
   readinessPath: *livenessPath
   command:
-    # - sleep
-    # - 100d
     - pantry-tracker
     - run
   port: 8080
@@ -31,9 +28,8 @@ pantryTrackerBackend:
     APP__SOCKET: 0.0.0.0:8080
     APP__DEBUG: "true"
   secretValues:
-    # APP__DATABASE_URL: ""
-    # APP__REDIS_URL: ""
-    
+    APP__DATABASE_URL: ""
+    APP__REDIS_URL: ""
 
 backendIngress:
   enabled: true
@@ -59,8 +55,7 @@ pantryTrackerFrontend:
   image:
     repository: ghcr.io/alexdenisova/pantry-tracker-frontend
     pullPolicy: Always
-    # tag: ""
-    tag: 0.0.0
+    tag: ""
   port: 5137
 
 frontendIngress:

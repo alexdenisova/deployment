@@ -1,1 +1,1 @@
-# helm-chart
+# Helm Chart for Pantry Tracker
