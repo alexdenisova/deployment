@@ -63,4 +63,5 @@ runs:
         command="$(printf '%s %s %s' "$command" "${{ inputs.release_name }}" "${{ inputs.helm_chart }}")"
         echo "$command"
         helm version
+        kubectl get namespaces
         eval "$command"
