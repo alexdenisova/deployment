@@ -41,6 +41,8 @@ runs:
         mkdir ~/.kube
         echo "${{ inputs.kubeconfig_b64 }}" | base64 -d > ~/.kube/config
         export KUBECONFIG="~/.kube/config"
+        echo looking
+        head -n 1 ~/.kube/config
         cat ~/.kube/config | yq -r '.clusters[0].cluster.server'
         echo "${{ inputs.gpg_key_b64 }}" | base64 -d > private.key
         gpg --import private.key
