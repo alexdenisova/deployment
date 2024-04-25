@@ -6,6 +6,7 @@ on:
 
 jobs:
   deploy:
+    secrets: inherit
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -18,7 +19,6 @@ jobs:
               - 'values/pantry-tracker/**'
       - name: Deploy Pantry Tracker
         uses: ./.github/actions/deploy
-        secrets: inherit
         with:
           helm_chart: "helm-charts/pantry-tracker"
           values_path: "values/pantry-tracker"
