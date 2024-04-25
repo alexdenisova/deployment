@@ -37,13 +37,15 @@ runs:
         curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
         sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
+        curl -Lo sops https://github.com/mozilla/sops/releases/download/v3.7.2/sops-v3.7.2.linux.amd64
+        sudo mv ./sops /usr/local/bin/sops
+        chmod +x /usr/local/bin/sops
+        echo $PATH
+
         helm plugin install https://github.com/jkroepke/helm-secrets --version v4.6.0
         mkdir ~/.kube
         echo "${{ inputs.kubeconfig_b64 }}" | base64 -d > ~/.kube/config
         export KUBECONFIG=$(realpath "~/.kube/config")
-        echo looking
-        head -n 1 ~/.kube/config
-        cat ~/.kube/config | yq -r '.clusters[0].cluster.server'
         echo "${{ inputs.gpg_key_b64 }}" | base64 -d > private.key
         gpg --import private.key
 
@@ -62,6 +64,4 @@ runs:
         done
         command="$(printf '%s %s %s' "$command" "${{ inputs.release_name }}" "${{ inputs.helm_chart }}")"
         echo "$command"
-        helm version
-        kubectl get namespaces
         eval "$command"
