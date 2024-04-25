@@ -61,5 +61,6 @@ runs:
           eval $(sed -e 's/^/export /' "${i}")
         done
         command="$(printf '%s %s %s' "$command" "${{ inputs.release_name }}" "${{ inputs.helm_chart }}")"
-        echo "command"
+        echo "$command"
+        helm version
         eval "$command"
