@@ -28,10 +28,19 @@ inputs:
     description: Wildcard for secrets files
     required: false
     default: "*sops.yaml"
+  gpg_key:
+    description: Base64 encoded private key
+    required: true
 
 runs:
   using: composite
   steps:
+    - name: Import GPG key
+      uses: crazy-max/ghaction-import-gpg@v6
+      with:
+        gpg_private_key: ${{ inputs.gpg_key }}
+    - name: List keys
+      run: gpg -K
     - shell: bash
       run: |-
         curl -sLO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"

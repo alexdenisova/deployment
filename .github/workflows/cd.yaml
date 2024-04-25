@@ -25,3 +25,4 @@ jobs:
           namespace: "pantry-tracker"
           kubeconfig_b64: ${{ secrets.HLM_KUBECONFIG_B64 }}
           gpg_key_b64: ${{ secrets.HLM_GPG_KEY_B64 }}
+          gpg_key: ${{ secrets.GPG_PRIVATE_KEY }}
