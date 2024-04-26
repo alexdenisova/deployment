@@ -16,7 +16,7 @@ pantryTrackerBackend:
       cpu: 100m
   image:
     repository: ghcr.io/alexdenisova/pantry-tracker-backend
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
     tag: ""
   livenessPath: &livenessPath /health
   readinessPath: *livenessPath
@@ -33,7 +33,7 @@ pantryTrackerBackend:
 
 backendIngress:
   enabled: true
-  host: &host "62.84.119.96.traefik.me"
+  host: &host "pantry-tracker.com"
   className: &ingress_class "ingress-nginx"
   tls:
     secretName: backend-tls
@@ -54,7 +54,7 @@ pantryTrackerFrontend:
       cpu: 50m
   image:
     repository: ghcr.io/alexdenisova/pantry-tracker-frontend
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
     tag: ""
   port: 5137
 
