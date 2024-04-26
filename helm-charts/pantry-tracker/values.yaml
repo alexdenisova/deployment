@@ -33,7 +33,7 @@ pantryTrackerBackend:
 
 backendIngress:
   enabled: true
-  host: &host "pantry-tracker.com"
+  host: &host "62.84.119.96.traefik.me"
   className: &ingress_class "ingress-nginx"
   tls:
     secretName: backend-tls
