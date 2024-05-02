@@ -33,7 +33,7 @@ pantryTrackerBackend:
 
 backendIngress:
   enabled: true
-  host: &host "pantry-tracker.com"
+  host: &host "pantry-tracker.alexdenisova.ru"
   className: &ingress_class "ingress-nginx"
   tls:
     secretName: backend-tls
