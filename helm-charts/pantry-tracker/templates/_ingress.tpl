@@ -9,17 +9,19 @@ kind: Ingress
 metadata:
   name: {{ .name }}
   labels:
-    {{- include "pantry-tracker.labels" $ | nindent 4 }}
+    {{- include "pantry-tracker.labels" . | nindent 4 }}
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
-  ingressClassName: {{ $.Values.ingress.className }}
+  {{- with $.Values.ingress -}}
+  ingressClassName: {{ .className }}
   tls:
     - hosts:
-        - {{ $.Values.ingress.host }}
-      secretName: {{ $.Values.ingress.tls.secretName }}
+        - {{ .host }}
+      secretName: {{ .tls.secretName }}
   rules:
-    - host: {{ $.Values.ingress.host }}
+    - host: {{ .host }}
+  {{- end -}}
       http:
         paths:
           - path: {{ .ingressPath }}
