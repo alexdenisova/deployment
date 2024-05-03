@@ -7,13 +7,13 @@ metadata:
   labels:
     {{- include "pantry-tracker.labels" . | nindent 4 }}
 spec:
-  ingressClassName: {{ .Values.frontendIngress.className }}
+  ingressClassName: {{ $.Values.ingress.className }}
   tls:
     - hosts:
-        - {{ .Values.frontendIngress.host }}
-      secretName: {{ .Values.frontendIngress.tls.secretName }}
+        - {{ $.Values.ingress.host }}
+      secretName: {{ $.Values.ingress.tls.secretName }}
   rules:
-    - host: {{ .Values.frontendIngress.host }}
+    - host: {{ $.Values.ingress.host }}
       http:
         paths:
           - path: /

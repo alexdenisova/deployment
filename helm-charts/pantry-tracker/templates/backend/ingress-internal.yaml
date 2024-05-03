@@ -9,13 +9,13 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
-  ingressClassName: {{ .Values.backendIngress.className }}
+  ingressClassName: {{ $.Values.ingress.className }}
   tls:
     - hosts:
-        - {{ .Values.backendIngress.host }}
-      secretName: {{ .Values.backendIngress.tls.secretName }}
+        - {{ $.Values.ingress.host }}
+      secretName: {{ $.Values.ingress.tls.secretName }}
   rules:
-    - host: {{ .Values.backendIngress.host }}
+    - host: {{ $.Values.ingress.host }}
       http:
         paths:
           - path: {{ .Values.backendIngress.backendRootPath }}(/|$)(.*)
