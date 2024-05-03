@@ -1,5 +1,0 @@
-{{- if .Values.ingress.enabled }}
-{{- with .Values.ingress.pantryTrackerBackend -}}
-{{- include "pantry-tracker.ingress" (list $ .) }}
-{{- end -}}
-{{- end -}}

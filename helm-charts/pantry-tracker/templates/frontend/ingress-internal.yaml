@@ -1,0 +1,26 @@
+{{- if .Values.frontendIngress.enabled }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.pantryTrackerFrontend.name }}-internal
+  labels:
+    {{- include "pantry-tracker.labels" . | nindent 4 }}
+spec:
+  ingressClassName: {{ .Values.frontendIngress.className }}
+  tls:
+    - hosts:
+        - {{ .Values.frontendIngress.host }}
+      # secretName: {{ .Values.frontendIngress.tls.secretName }}
+  rules:
+    - host: {{ .Values.frontendIngress.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.pantryTrackerFrontend.name }}
+                port:
+                  number: {{ get (include "pantry-tracker.servicePort" . | fromYaml) "port" }}
+{{- end }}

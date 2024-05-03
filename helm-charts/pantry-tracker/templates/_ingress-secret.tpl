@@ -1,6 +1,9 @@
-{{- if .Values.ingress.enabled }}
-{{- with .Values.ingress.tls -}}
----
+{{/*
+Template for Ingress Secret resource
+*/}}
+{{- define "pantry-tracker.ingressSecret" -}}
+{{- $ := index . 0 -}}
+{{- with index . 1 -}}
 apiVersion: v1
 kind: Secret
 type: kubernetes.io/tls

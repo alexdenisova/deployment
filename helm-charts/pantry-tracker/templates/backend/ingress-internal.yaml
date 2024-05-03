@@ -1,0 +1,28 @@
+{{- if .Values.backendIngress.enabled }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.pantryTrackerBackend.name }}
+  labels:
+    {{- include "pantry-tracker.labels" . | nindent 4 }}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: {{ .Values.backendIngress.className }}
+  tls:
+    - hosts:
+        - {{ .Values.backendIngress.host }}
+      # secretName: {{ .Values.backendIngress.tls.secretName }}
+  rules:
+    - host: {{ .Values.backendIngress.host }}
+      http:
+        paths:
+          - path: {{ .Values.backendIngress.backendRootPath }}(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.pantryTrackerBackend.name }}
+                port:
+                  number: {{ get (include "pantry-tracker.servicePort" . | fromYaml) "port" }}
+{{- end }}

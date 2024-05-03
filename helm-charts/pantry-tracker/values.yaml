@@ -24,13 +24,22 @@ pantryTrackerBackend:
     - pantry-tracker
     - run
   port: 8080
-  ingressPath: /api(/|$)(.*)
   configMapValues:
     APP__SOCKET: 0.0.0.0:8080
     APP__DEBUG: "true"
   secretValues:
     APP__DATABASE_URL: ""
     APP__REDIS_URL: ""
+
+backendIngress:
+  enabled: true
+  host: &host "pantry-tracker.alexdenisova.ru"
+  className: &ingress_class "ingress-nginx"
+  tls:
+    secretName: backend-tls
+    key: ""
+    certificate: ""
+  backendRootPath: /api
 
 pantryTrackerFrontend:
   name: frontend
@@ -48,14 +57,13 @@ pantryTrackerFrontend:
     pullPolicy: IfNotPresent
     tag: ""
   port: 5137
-  ingressPath: /
 
-ingress:
+frontendIngress:
   enabled: true
-  host: "pantry-tracker.alexdenisova.ru"
-  className: "ingress-nginx"
+  host: *host
+  className: *ingress_class
   tls:
-    secretName: pantry-tracker-tls
+    secretName: frontend-tls
     key: ""
     certificate: ""
 
