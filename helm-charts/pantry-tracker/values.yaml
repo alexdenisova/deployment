@@ -36,7 +36,7 @@ backendIngress:
   host: &host "pantry-tracker.com"
   className: &ingress_class "ingress-nginx"
   tls:
-    secretName: backend-tls
+    secretName: pantry-tracker-tls
     key: ""
     certificate: ""
   backendRootPath: /api
@@ -63,7 +63,17 @@ frontendIngress:
   host: *host
   className: *ingress_class
   tls:
-    secretName: frontend-tls
+    secretName: pantry-tracker-tls
+    key: ""
+    certificate: ""
+
+ingress:
+  enabled: true
+  host: "pantry-tracker.alexdenisova.ru"
+  dev_host: "pantry-tracker.com"
+  className: "ingress-nginx"
+  tls:
+    secretName: pantry-tracker-tls
     key: ""
     certificate: ""
 

@@ -11,7 +11,7 @@ spec:
   tls:
     - hosts:
         - {{ .Values.frontendIngress.host }}
-      # secretName: {{ .Values.frontendIngress.tls.secretName }}
+      secretName: {{ .Values.frontendIngress.tls.secretName }}
   rules:
     - host: {{ .Values.frontendIngress.host }}
       http:
