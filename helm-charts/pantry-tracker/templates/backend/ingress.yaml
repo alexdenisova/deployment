@@ -1,11 +1,12 @@
-{{- if .Values.backendIngress.enabled }}
+{{- if .Values.ingress.enabled }}
+{{- with .Values.pantryTrackerBackend -}}
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ .Values.pantryTrackerBackend.name }}
+  name: {{ .name }}
   labels:
-    {{- include "pantry-tracker.labels" . | nindent 4 }}
+    {{- include "pantry-tracker.labels" $ | nindent 4 }}
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
@@ -18,11 +19,11 @@ spec:
     - host: {{ $.Values.ingress.host }}
       http:
         paths:
-          - path: {{ .Values.backendIngress.backendRootPath }}(/|$)(.*)
+          - path: {{ $.Values.backendIngress.backendRootPath }}(/|$)(.*)
             pathType: Prefix
             backend:
               service:
-                name: {{ .Values.pantryTrackerBackend.name }}
+                name: {{ .name }}
                 port:
-                  number: {{ get (include "pantry-tracker.servicePort" . | fromYaml) "port" }}
+                  number: {{ get (include "pantry-tracker.servicePort" $ | fromYaml) "port" }}
 {{- end }}
