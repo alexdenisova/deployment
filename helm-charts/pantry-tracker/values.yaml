@@ -24,6 +24,7 @@ pantryTrackerBackend:
     - pantry-tracker
     - run
   port: 8080
+  ingressPath: /api(/|$)(.*)
   configMapValues:
     APP__SOCKET: 0.0.0.0:8080
     APP__DEBUG: "true"
@@ -57,6 +58,7 @@ pantryTrackerFrontend:
     pullPolicy: IfNotPresent
     tag: ""
   port: 5137
+  ingressPath: /
 
 frontendIngress:
   enabled: true
