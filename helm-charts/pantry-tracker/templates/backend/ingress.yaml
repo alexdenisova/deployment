@@ -27,3 +27,4 @@ spec:
                 port:
                   number: {{ get (include "pantry-tracker.servicePort" $ | fromYaml) "port" }}
 {{- end }}
+{{- end }}
