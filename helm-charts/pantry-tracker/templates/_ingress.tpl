@@ -29,7 +29,7 @@ spec:
                 name: {{ .name }}
                 port:
                   number: {{ get (include "pantry-tracker.servicePort" . | fromYaml) "port" }}
-    - host: {{ $.Values.ingress.dev_host }}
+    - host: {{ $.Values.ingress.public_ip }}
       http:
         paths:
           - path: {{ .ingressPath }}
