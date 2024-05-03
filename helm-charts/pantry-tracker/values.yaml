@@ -53,6 +53,7 @@ pantryTrackerFrontend:
 ingress:
   enabled: true
   host: "pantry-tracker.alexdenisova.ru"
+  public_ip: "84.201.161.147"
   className: "ingress-nginx"
   tls:
     secretName: pantry-tracker-tls
