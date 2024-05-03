@@ -1,6 +1,6 @@
 # Pantry Tracker Helm Chart
 
 Deploys:
- - Backend
- - Frontend
- - Postgres Migrations
+* Backend
+* Frontend
+* Postgres Migrations
