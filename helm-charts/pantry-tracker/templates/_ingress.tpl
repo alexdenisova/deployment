@@ -11,7 +11,7 @@ metadata:
   labels:
     {{- include "pantry-tracker.labels" $ | nindent 4 }}
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: {{ $.Values.ingress.className }}
   tls:
