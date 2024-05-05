@@ -1,4 +1,4 @@
 pantryTrackerBackend:
   image:
     repository: ghcr.io/alexdenisova/pantry-tracker-backend
-    tag: 24.4.3
+    tag: 24.5.1
