@@ -7,6 +7,7 @@ Deployment of my projects into Kubernetes with the help of Helm charts.
 ### Pantry Tracker
 
 Backend: <https://github.com/alexdenisova/pantry-tracker-backend>
+
 Frontend: <https://github.com/alexdenisova/pantry-tracker-frontend>
 
 ## Repo Structure
