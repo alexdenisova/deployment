@@ -5,6 +5,7 @@ registry_secret:
 
 drivingSchool:
   name: driving-school
+  schedule: "0 * * * 2,4"
   resources:
     limits:
       memory: 256Mi

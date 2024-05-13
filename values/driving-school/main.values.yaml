@@ -1,0 +1,4 @@
+drivingSchool:
+  schedule: "0 * * * 2,4"
+  configMapValues:
+    DS__SIGN_UP_TIME: 09:00
