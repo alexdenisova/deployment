@@ -10,14 +10,14 @@ spec:
   schedule: {{ .schedule }}
   jobTemplate:
     spec:
+      # backoffLimit: 0
       template:
         metadata:
           name: {{ .name }}
           labels:
             {{- include "driving-school.selectorLabels" $ | nindent 12 }}
         spec:
-          restartPolicy: Never
-          backoffLimit: 0
+          restartPolicy: OnFailure
           imagePullSecrets:
             - name: {{ $.Values.registry_secret.name }}
           containers:
