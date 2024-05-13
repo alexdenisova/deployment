@@ -20,6 +20,11 @@ jobs:
             pantry-tracker:
               - 'helm-charts/pantry-tracker/**'
               - 'values/pantry-tracker/**'
+              - 'values/*'
+            driving-school:
+              - 'helm-charts/driving-school/**'
+              - 'values/driving-school/**'
+              - 'values/*'
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
         if: steps.filter.outputs.all == 'true'
@@ -33,4 +38,13 @@ jobs:
           values_path: "values/pantry-tracker"
           release_name: "pantry-tracker"
           namespace: "pantry-tracker"
+          kubeconfig_b64: ${{ secrets.HLM_KUBECONFIG_B64 }}
+      - name: Deploy Driving School Sign up
+        uses: ./.github/actions/deploy
+        if: steps.filter.outputs.driving-school == 'true'
+        with:
+          helm_chart: "helm-charts/driving-school"
+          values_path: "values/driving-school"
+          release_name: "driving-school"
+          namespace: "driving-school"
           kubeconfig_b64: ${{ secrets.HLM_KUBECONFIG_B64 }}
