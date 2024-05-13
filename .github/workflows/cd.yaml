@@ -30,6 +30,11 @@ jobs:
         if: steps.filter.outputs.all == 'true'
         with:
           gpg_private_key: ${{ secrets.HLM_GPG_PRIVATE_KEY }}
+      - name: Pre Deploy
+        uses: ./.github/actions/pre-deploy
+        if: steps.filter.outputs.all == 'true'
+        with:
+          kubeconfig_b64: ${{ secrets.HLM_KUBECONFIG_B64 }}
       - name: Deploy Pantry Tracker
         uses: ./.github/actions/deploy
         if: steps.filter.outputs.pantry-tracker == 'true'
@@ -38,7 +43,6 @@ jobs:
           values_path: "values/pantry-tracker"
           release_name: "pantry-tracker"
           namespace: "pantry-tracker"
-          kubeconfig_b64: ${{ secrets.HLM_KUBECONFIG_B64 }}
       - name: Deploy Driving School Sign up
         uses: ./.github/actions/deploy
         if: steps.filter.outputs.driving-school == 'true'
@@ -47,4 +51,3 @@ jobs:
           values_path: "values/driving-school"
           release_name: "driving-school"
           namespace: "driving-school"
-          kubeconfig_b64: ${{ secrets.HLM_KUBECONFIG_B64 }}

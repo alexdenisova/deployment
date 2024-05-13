@@ -15,9 +15,6 @@ inputs:
   namespace:
     description: Release namespace
     required: true
-  kubeconfig_b64:
-    description: Base64 encoded kubeconfig
-    required: true
   gpg_key_b64:
     description: Base64 encoded private key
     required: true
@@ -33,20 +30,6 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Download kubectl, sops. helm-secrets plugin
-      shell: bash
-      run: |-
-        curl -sLO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-        sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-
-        curl -sLo sops https://github.com/mozilla/sops/releases/download/v3.7.2/sops-v3.7.2.linux.amd64
-        sudo mv ./sops /usr/local/bin/sops
-        chmod +x /usr/local/bin/sops
-
-        helm plugin install https://github.com/jkroepke/helm-secrets --version v4.6.0
-
-        mkdir ~/.kube
-        echo "${{ inputs.kubeconfig_b64 }}" | base64 -d > ~/.kube/config
     - name: Upgrade Helm Chart
       shell: bash
       run: |-
