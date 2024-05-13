@@ -17,6 +17,7 @@ spec:
             {{- include "driving-school.selectorLabels" $ | nindent 12 }}
         spec:
           restartPolicy: Never
+          backoffLimit: 0
           imagePullSecrets:
             - name: {{ $.Values.registry_secret.name }}
           containers:
