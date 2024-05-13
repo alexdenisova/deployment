@@ -17,6 +17,8 @@ drivingSchool:
     repository: ghcr.io/alexdenisova/drving-school
     pullPolicy: IfNotPresent
     tag: ""
+  command:
+    - driving-school
   configMapValues:
     DS__SIGN_UP_TIME: 09:00
     DS__DEBUG: "false"
