@@ -1,15 +1,13 @@
-pantryTrackerBackend:
-    secretValues:
-        APP__DATABASE_URL: ENC[AES256_GCM,data:cy5QO1EqV7RigQBr6GkO63dEPnVqP84OG9SA/XpPuOjaokcVKG/JkVADwi06wp0dck+9pOvXHcu+AkUQNwG4BrEWxwEgwNsYbdEijJ53NFjwS51pFvx+L4ZWGdyCjucGmFT2w6I=,iv:Smg9eSfp/YapbsjZ7M8Zl3GDZdjWGgvL8ddzmP7+J8E=,tag:BVq8EZnFsusA4Ceos2I8SQ==,type:str]
-        APP__REDIS_URL: ENC[AES256_GCM,data:ot7GrCmGtsdfe87IkCQNfAZRTZE8mLKVDP94w8CSNZMsprVNhiachInnXivsKOioMdERtaofpjEyM5el524KPbWBWicvNYzO,iv:JOcsMjenwWz+5bureX9AVnk/xkh9Z4mgZoh40zJ+tlM=,tag:WbATgm1KemXsfVcGj8USTw==,type:str]
+registry_secret:
+    data: ENC[AES256_GCM,data:C2AFQf0ASbLmiEI7Z8AeplOJpgb8LApJBRjpIacRjSVB/E4zbKtPn+EEy4QPAzC017AKcMLvLK2viYgkepmSq2wZ8SUZEZLHKM8cjQ8vsA4D2FGwzMEJ/cKKKbsL78EkJRXsjJoNEAq2v8xCKwHrUU69NnBkO/snFArAwbUOE72k0olWbEqUSZuaLR+YNiRNvW8AxVvuiS8TgjVYcOC+vWnEQfEFFet19Q01F/Mvu3pLuONViW3r/7Y=,iv:SQIC37MOz6fBdBcQm2j3M7lzLu/wTfm20A336TP/whY=,tag:aU7maKnnejl/QkZMnd3wTQ==,type:str]
 sops:
     kms: []
     gcp_kms: []
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2024-05-13T11:01:19Z"
-    mac: ENC[AES256_GCM,data:EoM1/Xwzn8r2ZgA5ZKAcLGPOyUvto/ZJ/cjtwYvi4CRwyi9H/EfS6rLpq6bR8SmXwVIYvXRfZyhxk9fM1uesHWl9AOGvMayof/hYEZVxtt5CCEzVX2v65KGt2zi95G9q7+aGPfJmLdkojHg4jMEdwkP5R6/ibz5vEFgEtBZjUNo=,iv:npWcKAbKtaoOzKkX7QwyBJGMRxBu/W/l+AEXZPl+Mt8=,tag:YlIVreh57jfhpCDjHcly3A==,type:str]
+    lastmodified: "2024-05-13T11:01:04Z"
+    mac: ENC[AES256_GCM,data:x8/Y6vTyV03h9V/DtSRmLcyskjr7B9mdR0sIHyJaln+De1eFNwFYLeOTSRhlX+qIOreF8Tk3Gx5NwmghBJed1xizcasOAso/SezQaRsgVJvnBZDXatvA2+ZI2WI/KvmHr2XVW6rrmyrxvJ1J2yzQhTIeOB5ssumvTqik3wrwsnI=,iv:HHOV6LsGdFip7vEw9HeD9IAem1iKoOM4MquDTjx3xBI=,tag:a9tlGJZa4zL26lMDeECUKA==,type:str]
     pgp:
         - created_at: "2024-04-25T14:28:51Z"
           enc: |-
