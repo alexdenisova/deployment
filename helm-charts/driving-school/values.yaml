@@ -1,0 +1,25 @@
+---
+registry_secret:
+  name: registrypullsecret
+  data: ""
+
+drivingSchool:
+  name: driving-school
+  resources:
+    limits:
+      memory: 256Mi
+      cpu: 200m
+    requests:
+      memory: 128Mi
+      cpu: 100m
+  image:
+    repository: ghcr.io/alexdenisova/drving-school
+    pullPolicy: IfNotPresent
+    tag: ""
+  configMapValues:
+    DS__SIGN_UP_TIME: 09:00
+    DS__DEBUG: "false"
+  secretValues:
+    DS__PHONE_NUMBER: ""
+    DS__PASSWORD: ""
+    DS__INSTRUCTOR_ID: ""

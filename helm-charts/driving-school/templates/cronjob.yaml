@@ -1,0 +1,35 @@
+{{- with .Values.drivingSchool -}}
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .name }}
+  labels:
+    {{- include "driving-school.labels" $ | nindent 4 }}
+spec:
+  schedule: {{ .schedule }}
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: {{ .name }}
+          labels:
+            {{- include "driving-school.selectorLabels" $ | nindent 12 }}
+        spec:
+          restartPolicy: Never
+          imagePullSecrets:
+            - name: {{ $.Values.registry_secret.name }}
+          containers:
+            - name: {{ .name }}
+              image: "{{ .image.repository }}:{{ .image.tag }}"
+              imagePullPolicy: {{ .image.pullPolicy }}
+              envFrom:
+                - configMapRef:
+                    name: {{ .name }}
+                    optional: false
+                - secretRef:
+                    name: {{ .name }}
+                    optional: false
+              resources:
+                {{- toYaml .resources | nindent 16 }}
+{{- end -}}

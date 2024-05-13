@@ -27,7 +27,7 @@ pantryTrackerBackend:
   ingressPath: /api(/|$)(.*)
   configMapValues:
     APP__SOCKET: 0.0.0.0:8080
-    APP__DEBUG: "true"
+    APP__DEBUG: "false"
   secretValues:
     APP__DATABASE_URL: ""
     APP__REDIS_URL: ""
