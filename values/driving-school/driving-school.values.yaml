@@ -1,4 +1,4 @@
 drivingSchool:
   image:
     repository: ghcr.io/alexdenisova/driving-school
-    tag: 24.5.5
+    tag: 24.5.3
