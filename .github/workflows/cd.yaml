@@ -21,9 +21,9 @@ jobs:
               - 'helm-charts/pantry-tracker/**'
               - 'values/pantry-tracker/**'
               - 'values/*'
-            driving-school:
-              - 'helm-charts/driving-school/**'
-              - 'values/driving-school/**'
+            google-calendar-utility:
+              - 'helm-charts/google-calendar-utility/**'
+              - 'values/google-calendar-utility/**'
               - 'values/*'
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
@@ -43,11 +43,11 @@ jobs:
           values_path: "values/pantry-tracker"
           release_name: "pantry-tracker"
           namespace: "pantry-tracker"
-      - name: Deploy Driving School Sign up
+      - name: Deploy Google Calendar Utility
         uses: ./.github/actions/deploy
-        if: steps.filter.outputs.driving-school == 'true'
+        if: steps.filter.outputs.google-calendar-utility == 'true'
         with:
-          helm_chart: "helm-charts/driving-school"
-          values_path: "values/driving-school"
-          release_name: "driving-school"
-          namespace: "driving-school"
+          helm_chart: "helm-charts/google-calendar-utility"
+          values_path: "values/google-calendar-utility"
+          release_name: "google-calendar-utility"
+          namespace: "calendar-utility"
