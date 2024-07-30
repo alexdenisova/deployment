@@ -1,0 +1,46 @@
+{{- with .Values.googleCalendarUtility -}}
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .name }}
+  labels:
+    {{- include "google-calendar-utility.labels" $ | nindent 4 }}
+spec:
+  schedule: {{ .schedule }}
+  jobTemplate:
+    spec:
+      # backoffLimit: 0
+      template:
+        metadata:
+          name: {{ .name }}
+          labels:
+            {{- include "google-calendar-utility.selectorLabels" $ | nindent 12 }}
+        spec:
+          restartPolicy: OnFailure
+          imagePullSecrets:
+            - name: {{ $.Values.registry_secret.name }}
+          volumes:
+            - name: google-private-key
+              secret:
+                secretName: {{- include "google-calendar-utility.privateKeyName" $ }}
+          containers:
+            - name: {{ .name }}
+              image: "{{ .image.repository }}:{{ .image.tag }}"
+              imagePullPolicy: {{ .image.pullPolicy }}
+              command:
+                {{- toYaml .command | nindent 16 }}
+              envFrom:
+                - configMapRef:
+                    name: {{ .name }}
+                    optional: false
+                - secretRef:
+                    name: {{ .name }}
+                    optional: false
+              volumeMounts:
+                - name: google-private-key
+                  readOnly: true
+                  mountPath: {{ .configMapValues.GCU__GOOGLE_PRIVATE_KEY }}
+              resources:
+                {{- toYaml .resources | nindent 16 }}
+{{- end -}}

@@ -1,0 +1,2 @@
+googleCalendarUtility:
+  schedule: "0 9,15,20 * * *"
