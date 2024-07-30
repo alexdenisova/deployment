@@ -23,7 +23,7 @@ spec:
           volumes:
             - name: google-private-key
               secret:
-                secretName: {{- include "google-calendar-utility.privateKeyName" $ }}
+                secretName: "{{- include "google-calendar-utility.privateKeyName" $ }}"
           containers:
             - name: {{ .name }}
               image: "{{ .image.repository }}:{{ .image.tag }}"
