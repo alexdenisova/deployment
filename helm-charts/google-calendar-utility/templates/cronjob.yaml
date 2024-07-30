@@ -40,7 +40,7 @@ spec:
               volumeMounts:
                 - name: google-private-key
                   readOnly: true
-                  mountPath: {{ .configMapValues.GCU__GOOGLE_PRIVATE_KEY }}
+                  mountPath: "{{ .googlePrivateKey.directory }}"
               resources:
                 {{- toYaml .resources | nindent 16 }}
 {{- end -}}
