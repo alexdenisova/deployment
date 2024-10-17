@@ -1,4 +1,4 @@
 googleCalendarUtility:
   image:
     repository: ghcr.io/alexdenisova/google-calendar-utility
-    tag: 24.8.1
+    tag: 24.10.0
