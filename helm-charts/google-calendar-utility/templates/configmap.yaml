@@ -1,17 +1,20 @@
-{{- with .Values.googleCalendarUtility -}}
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .name }}
+  name: {{ .Chart.Name }}
   labels:
     {{- include "google-calendar-utility.labels" $ | nindent 4 }}
   annotations:
     helm.sh/hook: pre-install,pre-upgrade
     helm.sh/hook-weight: "-3"
 data:
-  GCU__GOOGLE_PRIVATE_KEY: "{{ .googlePrivateKey.directory }}/private.key"
-  {{- if .configMapValues -}}
-  {{- toYaml .configMapValues | nindent 2 }}
+  {{- if .Values.calendarSync.enable }}
+  GCU__GOOGLE_PRIVATE_KEY: "{{- include "google-calendar-utility.privateKeyPath" $ }}"
+  {{- end }}
+  {{- if .Values.signUp.enable }}
+  GCU__SIGN_UP_CONFIG: "{{- include "google-calendar-utility.signupConfigPath" $ }}"
+  {{- end }}
+  {{- if .Values.configMapValues -}}
+  {{- toYaml .Values.configMapValues | nindent 2 }}
   {{- end -}}
-{{- end -}}

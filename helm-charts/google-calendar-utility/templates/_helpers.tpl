@@ -33,8 +33,30 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
-Google private key secret name.
+Google private key secret name
 */}}
-{{- define "google-calendar-utility.privateKeyName" -}}
+{{- define "google-calendar-utility.privateKeySecret" -}}
 google-private-key
+{{- end }}
+
+{{/*
+Google private key path
+*/}}
+{{- define "google-calendar-utility.privateKeyPath" -}}
+/google/private.key
+{{- end }}
+
+{{/*
+Sign-up config configmap name
+*/}}
+{{- define "google-calendar-utility.signupConfigMap" -}}
+signup-config
+{{- end }}
+
+
+{{/*
+Sign-up config path
+*/}}
+{{- define "google-calendar-utility.signupConfigPath" -}}
+/config/signup.yaml
 {{- end }}

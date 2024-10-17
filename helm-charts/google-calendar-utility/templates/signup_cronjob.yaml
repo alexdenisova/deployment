@@ -1,4 +1,5 @@
-{{- with .Values.googleCalendarUtility -}}
+{{- if .Values.signUp.enable -}}
+{{- with .Values.signUp -}}
 ---
 apiVersion: batch/v1
 kind: CronJob
@@ -21,26 +22,27 @@ spec:
           imagePullSecrets:
             - name: {{ $.Values.registry_secret.name }}
           volumes:
-            - name: google-private-key
-              secret:
-                secretName: "{{- include "google-calendar-utility.privateKeyName" $ }}"
+            - name: signup-config
+              configMap:
+                name: "{{- include "google-calendar-utility.signupConfigMap" $ }}"
           containers:
             - name: {{ .name }}
-              image: "{{ .image.repository }}:{{ .image.tag }}"
-              imagePullPolicy: {{ .image.pullPolicy }}
+              image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
+              imagePullPolicy: {{ $.Values.image.pullPolicy }}
               command:
                 {{- toYaml .command | nindent 16 }}
               envFrom:
                 - configMapRef:
-                    name: {{ .name }}
+                    name: {{ $.Chart.Name }}
                     optional: false
                 - secretRef:
-                    name: {{ .name }}
+                    name: {{ $.Chart.Name }}
                     optional: false
               volumeMounts:
-                - name: google-private-key
+                - name: signup-config
                   readOnly: true
-                  mountPath: "{{ .googlePrivateKey.directory }}"
+                  mountPath: "{{- dir (include "google-calendar-utility.signupConfigPath" $) }}"
               resources:
                 {{- toYaml .resources | nindent 16 }}
+{{- end -}}
 {{- end -}}

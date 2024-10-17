@@ -1,0 +1,48 @@
+{{- if .Values.calendarSync.enable -}}
+{{- with .Values.calendarSync -}}
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .name }}
+  labels:
+    {{- include "google-calendar-utility.labels" $ | nindent 4 }}
+spec:
+  schedule: {{ .schedule }}
+  jobTemplate:
+    spec:
+      # backoffLimit: 0
+      template:
+        metadata:
+          name: {{ .name }}
+          labels:
+            {{- include "google-calendar-utility.selectorLabels" $ | nindent 12 }}
+        spec:
+          restartPolicy: OnFailure
+          imagePullSecrets:
+            - name: {{ $.Values.registry_secret.name }}
+          volumes:
+            - name: google-private-key
+              secret:
+                secretName: "{{- include "google-calendar-utility.privateKeySecret" $ }}"
+          containers:
+            - name: {{ .name }}
+              image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
+              imagePullPolicy: {{ $.Values.image.pullPolicy }}
+              command:
+                {{- toYaml .command | nindent 16 }}
+              envFrom:
+                - configMapRef:
+                    name: {{ $.Chart.Name }}
+                    optional: false
+                - secretRef:
+                    name: {{ $.Chart.Name }}
+                    optional: false
+              volumeMounts:
+                - name: google-private-key
+                  readOnly: true
+                  mountPath: "{{- dir (include "google-calendar-utility.privateKeyPath" $) }}"
+              resources:
+                {{- toYaml .resources | nindent 16 }}
+{{- end -}}
+{{- end -}}

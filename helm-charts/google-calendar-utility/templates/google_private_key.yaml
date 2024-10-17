@@ -1,12 +1,14 @@
+{{- if .Values.calendarSync.enable -}}
 ---
 apiVersion: v1
 kind: Secret
 metadata:
-  name: "{{- include "google-calendar-utility.privateKeyName" $ }}"
+  name: "{{- include "google-calendar-utility.privateKeySecret" $ }}"
   labels:
     {{- include "google-calendar-utility.labels" $ | nindent 4 }}
   annotations:
     helm.sh/hook: pre-install,pre-upgrade
     helm.sh/hook-weight: "-3"
 data:
-  private.key: {{ .Values.googleCalendarUtility.googlePrivateKey.value | b64enc }}
+  {{ base (include "google-calendar-utility.privateKeyPath" $) }}: {{ .Values.calendarSync.googlePrivateKey | b64enc }}
+{{- end -}}

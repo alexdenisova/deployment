@@ -3,8 +3,17 @@ registry_secret:
   name: registrypullsecret
   data: ""
 
-googleCalendarUtility:
-  name: google-calendar-utility
+configMapValues: {}
+secretValues: {}
+
+image:
+  repository: ghcr.io/alexdenisova/google-calendar-utility
+  pullPolicy: IfNotPresent
+  tag: ""
+
+calendarSync:
+  enable: true
+  name: calendar-sync
   schedule: "0 0 * * *"
   resources:
     limits:
@@ -13,19 +22,27 @@ googleCalendarUtility:
     requests:
       memory: 128Mi
       cpu: 100m
-  image:
-    repository: ghcr.io/alexdenisova/google-calendar-utility
-    pullPolicy: IfNotPresent
-    tag: ""
   command:
     - google-calendar-utility
-  configMapValues: {}
-  secretValues:
-    GCU__GOOGLE_EMAIL: ""
-    GCU__GOOGLE_KEY_ID: ""
-    GCU__GOOGLE_CALENDAR_ID: ""
-    GCU__HOLI_USERNAME: ""
-    GCU__HOLI_PASSWORD: ""
-  googlePrivateKey:
-    value: ""
-    directory: /google
+    - sync
+  googlePrivateKey: ""
+
+signUp:
+  enable: true
+  name: class-signup
+  schedule: "0 0 * * *"
+  resources:
+    limits:
+      memory: 256Mi
+      cpu: 200m
+    requests:
+      memory: 128Mi
+      cpu: 100m
+  command:
+    - google-calendar-utility
+    - sign-up
+  config:
+    timezone: Europe/Moscow
+    offsetWeeks: 1
+    holiYoga: []
+    plastilin: []
