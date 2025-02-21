@@ -7,10 +7,10 @@ ingress:
   enabled: true
   host: "kettle-weigher.alexdenisova.ru"
   className: "ingress-nginx"
-  tls:
-    secretName: kettle-weigher-tls
-    key: ""
-    certificate: ""
+  # tls:
+  #   secretName: kettle-weigher-tls
+  #   key: ""
+  #   certificate: ""
 
 kettleWeigher:
   name: kettle-weigher
