@@ -37,7 +37,7 @@ runs:
         common_dir=$(dirname ${values_dir})
         HLM_VALUES=($(find "${common_dir}" "${values_dir}" -maxdepth 1 -type f -iname "${{ inputs.values_pattern }}"))
         HLM_SECRETS=($(find "${common_dir}" "${values_dir}" -maxdepth 1 -type f -iname "${{ inputs.secrets_pattern }}"))
-        command="helm upgrade --install --wait --wait-for-jobs --timeout 10m --namespace ${{ inputs.namespace }} --create-namespace"
+        command="helm upgrade --install --wait --wait-for-jobs --timeout 20m --namespace ${{ inputs.namespace }} --create-namespace"
         for value in "${HLM_VALUES[@]}"; do
           command="$(printf '%s --values %s' "$command" "$value")"
         done
