@@ -1,13 +1,13 @@
 registry_secret:
-    data: ENC[AES256_GCM,data:C2AFQf0ASbLmiEI7Z8AeplOJpgb8LApJBRjpIacRjSVB/E4zbKtPn+EEy4QPAzC017AKcMLvLK2viYgkepmSq2wZ8SUZEZLHKM8cjQ8vsA4D2FGwzMEJ/cKKKbsL78EkJRXsjJoNEAq2v8xCKwHrUU69NnBkO/snFArAwbUOE72k0olWbEqUSZuaLR+YNiRNvW8AxVvuiS8TgjVYcOC+vWnEQfEFFet19Q01F/Mvu3pLuONViW3r/7Y=,iv:SQIC37MOz6fBdBcQm2j3M7lzLu/wTfm20A336TP/whY=,tag:aU7maKnnejl/QkZMnd3wTQ==,type:str]
+    data: ENC[AES256_GCM,data:sFHTYBrkiJ8Xua4PvVWHFxoEe7JPu3XgEf5DXQkivdJEGU+VdajFU72w+q/j8DZ/J1ZQuDGkWoYiwBVAOqeShi3Ef1zaMt4ry6ZwTgw5NbBqKE+5uYWwO7FTJglSsxS3XqfHZ/2QKLo3+QRHuyYe5QeilDCvZFDe9QMxrFb5sC2FiDk1uRlKHWYguHRasOu87ZZmcpJL+vLIlrtDCU5JCde25vwDNF4w97EbdtetDMZMsvViOeQSbBE=,iv:Wp/B19J7sZEpk+A42nMKJnAjfzckDashqlYUZcEPmhY=,tag:cp/vcR5Ov3YpQu2KRM7v7A==,type:str]
 sops:
     kms: []
     gcp_kms: []
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2024-05-13T11:01:04Z"
-    mac: ENC[AES256_GCM,data:x8/Y6vTyV03h9V/DtSRmLcyskjr7B9mdR0sIHyJaln+De1eFNwFYLeOTSRhlX+qIOreF8Tk3Gx5NwmghBJed1xizcasOAso/SezQaRsgVJvnBZDXatvA2+ZI2WI/KvmHr2XVW6rrmyrxvJ1J2yzQhTIeOB5ssumvTqik3wrwsnI=,iv:HHOV6LsGdFip7vEw9HeD9IAem1iKoOM4MquDTjx3xBI=,tag:a9tlGJZa4zL26lMDeECUKA==,type:str]
+    lastmodified: "2025-02-21T14:43:47Z"
+    mac: ENC[AES256_GCM,data:UDM9XVacvD6N2A/2PbM/kOvfFO/kJqFwnNBBSFQfmBeGPsqnDT5mIX1kU3NcKsSAdL3caeCJPdEk8PKwMdRP2caJmP/QZ551JXdbg0SHd6iks7isbvIgusFEeu+S7RPz5gZshudSucMXG3H/k90BcguxRaTfge0cuyaokCSGDQ8=,iv:dpZlu2H/UlDvtl2APjSIsnLIm0wCqQ5smTF6UlKLydI=,tag:hzFKMGosRasBxL+dcAYH1A==,type:str]
     pgp:
         - created_at: "2024-04-25T14:28:51Z"
           enc: |-
