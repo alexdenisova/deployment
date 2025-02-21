@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Determine changed files 
+      - name: Determine changed files
         uses: dorny/paths-filter@v3
         id: filter
         with:
@@ -24,6 +24,10 @@ jobs:
             google-calendar-utility:
               - 'helm-charts/google-calendar-utility/**'
               - 'values/google-calendar-utility/**'
+              - 'values/*'
+            kettle-weigher:
+              - 'helm-charts/kettle-weigher/**'
+              - 'values/kettle-weigher/**'
               - 'values/*'
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
@@ -51,3 +55,11 @@ jobs:
           values_path: "values/google-calendar-utility"
           release_name: "google-calendar-utility"
           namespace: "calendar-utility"
+      - name: Deploy Kettle Weigher
+        uses: ./.github/actions/deploy
+        if: steps.filter.outputs.kettle-weigher == 'true'
+        with:
+          helm_chart: "helm-charts/kettle-weigher"
+          values_path: "values/kettle-weigher"
+          release_name: "kettle-weigher"
+          namespace: "kettle-weigher"
