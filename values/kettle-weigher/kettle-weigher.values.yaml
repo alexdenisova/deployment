@@ -1,4 +1,4 @@
 kettleWeigher:
   image:
     repository: ghcr.io/alexdenisova/kettle-weigher
-    tag: 25.2.12
+    tag: 25.2.13
