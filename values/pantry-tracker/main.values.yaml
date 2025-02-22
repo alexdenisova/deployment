@@ -1,7 +1,0 @@
-pantryTrackerBackend:
-  image:
-    pullPolicy: Always
-
-pantryTrackerFrontend:
-  image:
-    pullPolicy: Always
