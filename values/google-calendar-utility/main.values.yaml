@@ -1,5 +1,5 @@
 calendarSync:
-  schedule: "0 9,15,20 * * *"
+  schedule: "0 * * * *"
 signUp:
   schedule: "0 9 * * *"
   config:
@@ -10,6 +10,9 @@ signUp:
         - name: "Хатха йога (Beginner)"
           weekday: Fri
           startTime: 18:30
+        - name: "Хатха йога + Медитация (All Level)"
+          weekday: Mon
+          startTime: 17:30
       plastilin:
         - name: Школа шпагата (продольный)
           weekday: Sat
