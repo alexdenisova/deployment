@@ -5,14 +5,15 @@ signUp:
   config:
     timezone: Europe/Moscow
     offsetWeeks: 1
-    holiYoga:
-      - name: "Хатха йога (Beginner)"
-        weekday: Fri
-        startTime: 18:30
-    plastilin:
-      - name: Школа шпагата (продольный)
-        weekday: Sat
-        startTime: 11:00
-      - name: Школа шпагата (поперечный)
-        weekday: Sat
-        startTime: 12:00
+    classes:
+      holiYoga:
+        - name: "Хатха йога (Beginner)"
+          weekday: Fri
+          startTime: 18:30
+      plastilin:
+        - name: Школа шпагата (продольный)
+          weekday: Sat
+          startTime: 11:00
+        - name: Школа шпагата (поперечный)
+          weekday: Sat
+          startTime: 12:00
