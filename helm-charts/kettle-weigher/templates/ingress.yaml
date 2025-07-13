@@ -4,7 +4,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ .name }}
+  name: {{ include "kettle-weigher.name" $ }}
   labels:
     {{- include "kettle-weigher.labels" $ | nindent 4 }}
 spec:
@@ -13,7 +13,7 @@ spec:
   tls:
     - hosts:
         - {{ $.Values.ingress.host }}
-      secretName: {{ $.Values.ingress.tls.secretName }}
+      secretName: {{ include "kettle-weigher.tls_secret" $ }}
 {{- end }}
   rules:
     - host: {{ $.Values.ingress.host }}
@@ -23,7 +23,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ .name }}
+                name: {{ include "kettle-weigher.name" $ }}
                 port:
                   number: {{ get (include "kettle-weigher.servicePort" $ | fromYaml) "port" }}
 {{- end }}

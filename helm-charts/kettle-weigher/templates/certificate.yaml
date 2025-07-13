@@ -1,0 +1,17 @@
+{{- if .Values.ingress.enabled }}
+{{- with .Values.certificate -}}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "kettle-weigher.name" $ }}
+spec:
+  commonName: {{ .host }}
+  dnsNames:
+    - {{ .host }}
+  issuerRef:
+    name: {{ .issuerRef.name }}
+    kind: {{ .issuerRef.kind | default "ClusterIssuer" }}
+  secretName: {{ include "kettle-weigher.tls_secret" $ }}
+{{- end -}}
+{{- end -}}

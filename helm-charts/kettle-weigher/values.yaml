@@ -3,17 +3,18 @@ registry_secret:
   name: registrypullsecret
   data: ""
 
+certificate:
+  host: &host kettle-weigher.alexdenisova.ru
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+
 ingress:
   enabled: true
-  host: "kettle-weigher.alexdenisova.ru"
+  host: *host
   className: "ingress-nginx"
-  tls:
-    secretName: kettle-weigher-tls
-    key: ""
-    certificate: ""
 
 kettleWeigher:
-  name: kettle-weigher
   replicaCount: 1
   annotations: {}
   resources:
