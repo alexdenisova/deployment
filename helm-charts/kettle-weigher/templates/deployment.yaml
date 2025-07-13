@@ -29,10 +29,10 @@ spec:
             {{- toYaml .command | nindent 12 }}
           envFrom:
             - configMapRef:
-                name: {{ $.Values.kettleWeigher.name }}
+                name: {{ include "kettle-weigher.name" $ }}
                 optional: false
             - secretRef:
-                name: {{ $.Values.kettleWeigher.name }}
+                name: {{ include "kettle-weigher.name" $ }}
                 optional: false
           ports:
             - name: {{ get (include "kettle-weigher.servicePort" $ | fromYaml) "name" }}
