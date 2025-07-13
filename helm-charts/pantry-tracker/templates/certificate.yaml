@@ -1,0 +1,17 @@
+{{- if .Values.ingress.enabled }}
+{{- with .Values.certificate -}}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "pantry-tracker.name" $ }}
+spec:
+  commonName: {{ .host }}
+  dnsNames:
+    - {{ .host }}
+  issuerRef:
+    name: {{ .issuerRef.name }}
+    kind: {{ .issuerRef.kind | default "ClusterIssuer" }}
+  secretName: {{ include "pantry-tracker.tls_secret" $ }}
+{{- end -}}
+{{- end -}}

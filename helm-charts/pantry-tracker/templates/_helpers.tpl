@@ -1,4 +1,11 @@
 {{/*
+Expand the name of the chart.
+*/}}
+{{- define "pantry-tracker.name" -}}
+{{- .Chart.Name | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
 ServicePort
 */}}
 {{- define "pantry-tracker.servicePort" -}}
@@ -18,4 +25,11 @@ app.kubernetes.io/name: {{ .Chart.Name }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{/*
+TLS secret name
+*/}}
+{{- define "pantry-tracker.tls_secret" -}}
+{{- printf "%s-tls" (include "pantry-tracker.name" $) }}
 {{- end }}

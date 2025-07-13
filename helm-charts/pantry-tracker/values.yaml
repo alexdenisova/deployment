@@ -3,6 +3,17 @@ registry_secret:
   name: registrypullsecret
   data: ""
 
+certificate:
+  host: &host pantry-tracker.alexdenisova.ru
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+
+ingress:
+  enabled: true
+  host: *host
+  className: "ingress-nginx"
+
 pantryTrackerBackend:
   name: backend
   replicaCount: 1
@@ -49,15 +60,6 @@ pantryTrackerFrontend:
     tag: ""
   port: 5137
   ingressPath: /
-
-ingress:
-  enabled: true
-  host: "pantry-tracker.alexdenisova.ru"
-  className: "ingress-nginx"
-  tls:
-    secretName: pantry-tracker-tls
-    key: ""
-    certificate: ""
 
 postgresMigrations:
   name: postgres-migrations
