@@ -1,0 +1,30 @@
+---
+registry_secret:
+  name: registrypullsecret
+  data: ""
+
+gatewayAPI:
+  hostnames:
+    - transcribe.alexdenisova.net
+
+image:
+  repository: ghcr.io/alexdenisova/rover
+  pullPolicy: IfNotPresent
+  tag: ""
+
+replicaCount: 1
+
+annotations: {}
+
+resources:
+  limits:
+    memory: 5Gi
+    cpu: "2"
+  requests:
+    memory: 3Gi
+    cpu: "1"
+
+livenessPath: &livenessPath /health
+readinessPath: *livenessPath
+
+port: 8000

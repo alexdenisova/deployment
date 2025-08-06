@@ -1,0 +1,48 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "speech-to-text.name" . }}
+  labels:
+    {{- include "speech-to-text.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "speech-to-text.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        {{- toYaml .Values.annotations | nindent 8 }}
+      labels:
+        {{- include "speech-to-text.selectorLabels" . | nindent 8 }}
+    spec:
+      imagePullSecrets:
+        - name: {{ .Values.registry_secret.name }}
+      containers:
+        - name: {{ include "speech-to-text.name" . }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: {{ get (include "speech-to-text.servicePort" . | fromYaml) "name" }}
+              containerPort: {{ .Values.port }}
+              protocol: {{ get (include "speech-to-text.servicePort" . | fromYaml) "protocol" }}
+          livenessProbe:
+            initialDelaySeconds: 30
+            httpGet:
+              path: {{ .Values.livenessPath }}
+              port: {{ get (include "speech-to-text.servicePort" . | fromYaml) "name" }}
+          readinessProbe:
+            initialDelaySeconds: 30
+            httpGet:
+              path: {{ .Values.readinessPath }}
+              port: {{ get (include "speech-to-text.servicePort" . | fromYaml) "name" }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: /tmp
+              name: tmp-volume
+      volumes:
+        - name: tmp-volume
+          emptyDir:
+            sizeLimit: 500Mi
