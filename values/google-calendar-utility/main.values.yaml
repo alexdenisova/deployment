@@ -7,16 +7,9 @@ signUp:
     offsetWeeks: 1
     classes:
       holiYoga:
-        - name: "Хатха йога (Beginner)"
-          weekday: Fri
-          startTime: 18:30
+        - name: Хатха йога (All Level)
+          weekday: Tue
+          startTime: 20:00
         - name: "Хатха йога + Медитация (All Level)"
-          weekday: Mon
+          weekday: Fri
           startTime: 17:30
-      plastilin:
-        - name: Школа шпагата (продольный)
-          weekday: Sat
-          startTime: 11:00
-        - name: Школа шпагата (поперечный)
-          weekday: Sat
-          startTime: 12:00
