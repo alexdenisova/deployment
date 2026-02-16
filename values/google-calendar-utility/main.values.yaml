@@ -10,6 +10,9 @@ signUp:
         - name: Хатха йога (All Level)
           weekday: Tue
           startTime: 20:00
-        - name: "Хатха йога + Медитация (All Level)"
-          weekday: Fri
-          startTime: 17:30
+        - name: Хатха йога (All Level)
+          weekday: Thu
+          startTime: 20:00
+        - name: "Виньяса йога (All Level)"
+          weekday: Sat
+          startTime: 12:00
