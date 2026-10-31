@@ -33,35 +33,35 @@ jobs:
               - 'values/*'
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
-        if: steps.filter.outputs.all == 'true'
+        if: steps.filter.outputs.all == 'true' || github.event_name == 'workflow_dispatch'
         with:
           gpg_private_key: ${{ secrets.HLM_GPG_PRIVATE_KEY }}
       - name: Pre Deploy
         uses: ./.github/actions/pre-deploy
-        if: steps.filter.outputs.all == 'true'
+        if: steps.filter.outputs.all == 'true' || github.event_name == 'workflow_dispatch'
         with:
           kubeconfig_b64: ${{ secrets.HLM_KUBECONFIG_B64 }}
       - name: Deploy Pantry Tracker
         uses: ./.github/actions/deploy
-        if: steps.filter.outputs.pantry-tracker == 'true'
+        if: steps.filter.outputs.pantry-tracker == 'true' || github.event_name == 'workflow_dispatch'
         with:
           helm_chart: "helm-charts/pantry-tracker"
           values_path: "values/pantry-tracker"
           release_name: "pantry-tracker"
           namespace: "pantry-tracker"
-      - name: Deploy Google Calendar Utility
-        uses: ./.github/actions/deploy
-        if: steps.filter.outputs.google-calendar-utility == 'true'
-        with:
-          helm_chart: "helm-charts/google-calendar-utility"
-          values_path: "values/google-calendar-utility"
-          release_name: "google-calendar-utility"
-          namespace: "calendar-utility"
-      - name: Deploy Kettle Weigher
-        uses: ./.github/actions/deploy
-        if: steps.filter.outputs.kettle-weigher == 'true'
-        with:
-          helm_chart: "helm-charts/kettle-weigher"
-          values_path: "values/kettle-weigher"
-          release_name: "kettle-weigher"
-          namespace: "kettle-weigher"
+      # - name: Deploy Google Calendar Utility
+      #   uses: ./.github/actions/deploy
+      #   if: steps.filter.outputs.google-calendar-utility == 'true' || github.event_name == 'workflow_dispatch'
+      #   with:
+      #     helm_chart: "helm-charts/google-calendar-utility"
+      #     values_path: "values/google-calendar-utility"
+      #     release_name: "google-calendar-utility"
+      #     namespace: "calendar-utility"
+      # - name: Deploy Kettle Weigher
+      #   uses: ./.github/actions/deploy
+      #   if: steps.filter.outputs.kettle-weigher == 'true' || github.event_name == 'workflow_dispatch'
+      #   with:
+      #     helm_chart: "helm-charts/kettle-weigher"
+      #     values_path: "values/kettle-weigher"
+      #     release_name: "kettle-weigher"
+      #     namespace: "kettle-weigher"
