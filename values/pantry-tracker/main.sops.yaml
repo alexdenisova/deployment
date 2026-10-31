@@ -1,15 +1,15 @@
 pantryTrackerBackend:
     secretValues:
-        APP__DATABASE_URL: ENC[AES256_GCM,data:cy5QO1EqV7RigQBr6GkO63dEPnVqP84OG9SA/XpPuOjaokcVKG/JkVADwi06wp0dck+9pOvXHcu+AkUQNwG4BrEWxwEgwNsYbdEijJ53NFjwS51pFvx+L4ZWGdyCjucGmFT2w6I=,iv:Smg9eSfp/YapbsjZ7M8Zl3GDZdjWGgvL8ddzmP7+J8E=,tag:BVq8EZnFsusA4Ceos2I8SQ==,type:str]
-        APP__REDIS_URL: ENC[AES256_GCM,data:ot7GrCmGtsdfe87IkCQNfAZRTZE8mLKVDP94w8CSNZMsprVNhiachInnXivsKOioMdERtaofpjEyM5el524KPbWBWicvNYzO,iv:JOcsMjenwWz+5bureX9AVnk/xkh9Z4mgZoh40zJ+tlM=,tag:WbATgm1KemXsfVcGj8USTw==,type:str]
+        APP__DATABASE_URL: ENC[AES256_GCM,data:5+1/zZ+n5GQ0wS3zo1/7X4PGKx28Mibn01hsJufGxihY6AgtPwF/fNt8wCeDfpHYg13ZZGg+fL29GRLRSA1dY+ixDunSzMb1kIeM4KCEjsci4f7RG2sCEAoZCleTBh1gzkgU9ng=,iv:DWh5tQTqrkoIF054hmkl8K0/xg4VN8CW8lpirPdF+gw=,tag:opVBaA4zK3gIBXicAMHwsw==,type:str]
+        APP__REDIS_URL: ENC[AES256_GCM,data:kYmnPNt9nS5pV+WH9LNG2H7FkbuqWAfrRkQXJ/FtKwA9Uhv8QdfrV648TRwFfr0x0WIfwhbbteW/vhDqpgvWg9c=,iv:FnZB0yjXa78qFzAr9BedNgXlhW9ZEga2dvn65o8zzy4=,tag:F2jBZl/HdL5PRqpW7NJB3w==,type:str]
 sops:
     kms: []
     gcp_kms: []
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2025-07-13T17:56:10Z"
-    mac: ENC[AES256_GCM,data:sMf/OqPvmhPKc//h7HM+PY1tTQxRhfHsaS1IQC1iX/K38x8Za8N+Wul3DQhGZEL9fN+AJ9Q4rC3aryeX4Y12mM+UNN4l9zhpGl0zZsgkcKUeUL4UxxNhW8A1bK+BuQusFoaPUEUmuyh/eeeaMUf3dPTAtit3nstvLOhqJHOdTao=,iv:niFVUTE/nDcngV9wU12Ks4BLer7pyfMnV9Puw9RpK0I=,tag:1GeobDwNhw40seG57OpVKQ==,type:str]
+    lastmodified: "2026-10-31T20:49:18Z"
+    mac: ENC[AES256_GCM,data:sXcKOgRIt9YrsASxLy0/2Nf6DI62Of5nI4ajNpjgdSP3jDAvFSJ53j4ZTS2dRMRGK9ODdmEJPuPasL+lW7KltCLsIK5FQNqanZGTryUqfyCWgLRRI0qMn7zDL2j2yohU3Bjikd6Dvtamnr4in8NmOJon2scNFztEeLQQ7UjFz48=,iv:Gy54fuEmStiigkHAtwHrbzR3ZlzzQ3om7gQsOxXGIac=,tag:N6loE9XIr3/gsdMdvIL22g==,type:str]
     pgp:
         - created_at: "2024-04-25T14:28:51Z"
           enc: |-
