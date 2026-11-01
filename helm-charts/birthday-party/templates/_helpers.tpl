@@ -27,5 +27,5 @@ app.kubernetes.io/component: {{ index . 1 }}
 
 {{- define "bp.imagePullSecrets" -}}
 imagePullSecrets:
-  {{- list (dict "name" .Values.registrySecret.name) | toYaml | nindent 2 }}
+  {{- list (dict "name" .Values.registry_secret.name) | toYaml | nindent 2 }}
 {{- end -}}

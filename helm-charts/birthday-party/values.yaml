@@ -2,7 +2,7 @@
 host: birthday.alexdenisova.com
 
 # Needed while the GHCR packages are private, e.g. [{ name: ghcr-pull }]
-registrySecret:
+registry_secret:
   name: registrypullsecret
   data: ''
 
