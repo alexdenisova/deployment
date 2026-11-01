@@ -31,6 +31,10 @@ jobs:
               - 'helm-charts/kettle-weigher/**'
               - 'values/kettle-weigher/**'
               - 'values/*'
+            birthday-party:
+              - 'helm-charts/birthday-party/**'
+              - 'values/birthday-party/**'
+              - 'values/*'
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
         if: steps.filter.outputs.all == 'true' || github.event_name == 'workflow_dispatch'
