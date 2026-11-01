@@ -1,0 +1,100 @@
+{{- $name := printf "%s-s3" (include "bp.fullname" .) }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "bp.labels" . | nindent 4 }}
+spec:
+  selector:
+    {{- include "bp.selectorLabels" (list . "s3") | nindent 4 }}
+  ports:
+    - name: s3
+      port: 9000
+      targetPort: s3
+    - name: console
+      port: 9001
+      targetPort: console
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "bp.labels" . | nindent 4 }}
+    app.kubernetes.io/component: s3
+spec:
+  serviceName: {{ $name }}
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "bp.selectorLabels" (list . "s3") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "bp.selectorLabels" (list . "s3") | nindent 8 }}
+    spec:
+      initContainers:
+        # RustFS runs as user 10001; hostpath volumes ignore fsGroup, so fix ownership here
+        - name: fix-permissions
+          image: busybox:1.36
+          command: ["sh", "-c", "chown -R 10001:10001 /data"]
+          securityContext:
+            runAsUser: 0
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      containers:
+        - name: rustfs
+          image: "{{ .Values.s3.image.repository }}:{{ .Values.s3.image.tag }}"
+          ports:
+            - name: s3
+              containerPort: 9000
+            - name: console
+              containerPort: 9001
+          env:
+            - name: RUSTFS_VOLUMES
+              value: /data
+            - name: RUSTFS_ADDRESS
+              value: 0.0.0.0:9000
+            - name: RUSTFS_CONSOLE_ADDRESS
+              value: 0.0.0.0:9001
+            - name: RUSTFS_CONSOLE_ENABLE
+              value: "true"
+            - name: RUSTFS_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "bp.secretName" . }}
+                  key: s3-access-key
+            - name: RUSTFS_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "bp.secretName" . }}
+                  key: s3-secret-key
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: s3
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: s3
+            initialDelaySeconds: 30
+            periodSeconds: 15
+          resources:
+            {{- toYaml .Values.s3.resources | nindent 12 }}
+          volumeMounts:
+            - name: data
+              mountPath: /data
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        {{- with .Values.s3.storage.storageClass }}
+        storageClassName: {{ . }}
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ .Values.s3.storage.size }}

@@ -1,0 +1,73 @@
+# Public hostname of the site
+host: birthday.alexdenisova.com
+
+# Needed while the GHCR packages are private, e.g. [{ name: ghcr-pull }]
+registrySecret:
+  name: registrypullsecret
+  data: ''
+
+ingress:
+  enabled: true
+  className: ingress-nginx
+  annotations:
+    # Allow gift photo uploads up to the API's 10 MB limit
+    nginx.ingress.kubernetes.io/proxy-body-size: "12m"
+  tls:
+    enabled: true
+    # cert-manager ClusterIssuer that issues the certificate
+    clusterIssuer: letsencrypt
+    secretName: birthday-party-tls
+
+# Passwords and keys. Empty values are generated on first install and kept on upgrades.
+secrets:
+  # Host password for the ?host page and guests.html
+  adminToken: ""
+  postgresPassword: ""
+  s3AccessKey: ""
+  s3SecretKey: ""
+
+frontend:
+  replicas: 1
+  image:
+    repository: ghcr.io/alexdenisova/birthday-party-frontend
+    tag: latest
+    pullPolicy: Always
+  resources:
+    requests: { cpu: 10m, memory: 16Mi }
+    limits: { memory: 64Mi }
+
+api:
+  replicas: 1
+  image:
+    repository: ghcr.io/alexdenisova/birthday-party-api
+    tag: latest
+    pullPolicy: Always
+  resources:
+    requests: { cpu: 50m, memory: 96Mi }
+    limits: { memory: 256Mi }
+
+postgres:
+  image:
+    repository: postgres
+    tag: "16"
+  user: party
+  database: party
+  storage:
+    size: 2Gi
+    # Empty uses the cluster default (microk8s-hostpath with the hostpath-storage addon)
+    storageClass: ""
+  resources:
+    requests: { cpu: 50m, memory: 128Mi }
+    limits: { memory: 512Mi }
+
+s3:
+  image:
+    repository: rustfs/rustfs
+    tag: "1.0.1"
+  bucket: wishlist
+  storage:
+    size: 1Gi
+    storageClass: ""
+  resources:
+    requests: { cpu: 50m, memory: 128Mi }
+    limits: { memory: 512Mi }

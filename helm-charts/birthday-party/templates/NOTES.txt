@@ -1,0 +1,13 @@
+The invitation is deployed at: http{{ if .Values.ingress.tls.enabled }}s{{ end }}://{{ .Values.host }}
+
+Host page (add wishlist gifts): http{{ if .Values.ingress.tls.enabled }}s{{ end }}://{{ .Values.host }}/?host
+Guest list:                     http{{ if .Values.ingress.tls.enabled }}s{{ end }}://{{ .Values.host }}/guests.html
+
+Get the host password:
+  kubectl get secret -n {{ .Release.Namespace }} {{ include "bp.secretName" . }} -o jsonpath='{.data.admin-token}' | base64 -d; echo
+
+Read the RSVPs directly in PostgreSQL:
+  kubectl exec -it -n {{ .Release.Namespace }} {{ include "bp.fullname" . }}-postgres-0 -- psql -U {{ .Values.postgres.user }} -c "SELECT * FROM rsvps"
+
+Browse the stored photos (RustFS console), then open http://localhost:9001:
+  kubectl port-forward -n {{ .Release.Namespace }} svc/{{ include "bp.fullname" . }}-s3 9001

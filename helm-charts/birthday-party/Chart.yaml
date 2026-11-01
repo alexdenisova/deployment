@@ -1,0 +1,6 @@
+apiVersion: v2
+name: birthday-party
+description: Wild West birthday invitation – website, API, PostgreSQL and S3 (RustFS)
+type: application
+version: 0.1.0
+appVersion: "latest"

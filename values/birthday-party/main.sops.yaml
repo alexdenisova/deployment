@@ -1,0 +1,35 @@
+secrets:
+    #ENC[AES256_GCM,data:z0BDrFz/CuYo/VcA981K6EYFsDkrqyfonpIaS4xgsDKzbRErqXnNTiOSCA1zqvnbbA==,iv:8g+0qitpHEAQsDxTCNlOAIf0YOrXsWgIPyTrwqkn140=,tag:BJeB/4YxfQvWZzXhyHVORg==,type:comment]
+    adminToken: ENC[AES256_GCM,data:emkPwyix,iv:MIBs0+RtCuVKXfpOUT/UND+PMnUdLLuXYwgL5VXQhic=,tag:61poDtFI9UWs5bxJmYe+Ng==,type:str]
+    postgresPassword: ENC[AES256_GCM,data:aGnA1YdbJw+6vUq7RYHleg==,iv:vTxaefwnClVrgBZHFxqZDLUtUTCAczqrIYsiB+YubGg=,tag:QJkrPiBcSoP1gWAi3As2yA==,type:str]
+    s3AccessKey: ENC[AES256_GCM,data:wCfgIX9nCfFvq32ZnYV8wA==,iv:vLQcPl29uqSNkUiqBDh6QC0IuwVoYji64N34mWMYNCU=,tag:48ormCNjuVhD966uLmHByg==,type:str]
+    s3SecretKey: ENC[AES256_GCM,data:iIZ+jPz2iD7fGLbTDRUUww==,iv:ot2Qc2OMuLuaMLHw+XLVqiPRiUMj6CxM/Z9N6AtCszY=,tag:FrGlTsHZmZAPJR7rksKBYA==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2026-11-01T15:23:54Z"
+    mac: ENC[AES256_GCM,data:MPliRNlLf6LSmcN8WyuK+6VIfd3XgA8Fq/R87fmIOzE7Cywt8OG38PMjNbqJzbweYNCtvMRPup0RM59YTbycixS4jjJjCLc7bsk1PM9vh+xnf8kWLL83mSwO4qg45Bt1jJ8wVdIG2Pg9r/DwaQwaFuluSJuPrN6tE4xT+/zVctY=,iv:gQfhwi8UUO2MjEP4eMtUtGvZ+zyZ2PhgMb1zxtQEm5M=,tag:5a2mUaB7GgVSHBAGbfUY0Q==,type:str]
+    pgp:
+        - created_at: "2024-04-25T14:28:51Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQGMA/OaUC1A1eC8AQv6A+2EDLADXqW6THru7+Ik9ECLLyuvOWkZf1kX/59En9HH
+            yU1/7qmJ2pp7KG21ptarqLVYfBMSdIetDEgI/fWdBf7vlvmoxm1nf+S/LKDBFOXK
+            sx2ZUrhZhfcN+xWr+mFRcmMiAobHamezKpz8YksA1IC6cjGu5xRW1KkM1dYq7xZO
+            awUkAS7K60a7LjwLveswP0uq+MAJ1XVYd5Oqn/fykQirBybBk/nbtokL5RMXLsrD
+            UfYlFrezgFkHUrkMjBk1OD+ywXar9Nj4qjvWl5jT+xVD2yw8YyH/pq7b/BcT1A6G
+            OR+Z39sSxMeVAQL9RcPW7TLqQqgIhfN3OKnKYbg5esAmT6a5KvKW66a3PfHW7+iI
+            YFnvcGtxIdo0SYSmrqaly9zEf8CokYce/JNYdJOFycwJHS5/E+ieyVkgDF3CHv2h
+            kRD4AERvnITX1Kh9Cei+0GKSWuH5/4OXBDmmp23tVfHFHwYi7VAzPkLJN0fRcjaX
+            mkXw24QgNHCgU6Q0hNjN0l4Bh8dR8M8q3Gdyi+HxB6eK47n58WNSysfTjrqZ1hdm
+            80Pm7CFds1Uxi50boKee4mKXc1neARWRzCBF11yX5NK9TewZHqxOW2OlYPeSVZ3n
+            IcdjT4XOoh9q5mQpyPgb
+            =fWNa
+            -----END PGP MESSAGE-----
+          fp: CC843E5CA0F6E4F954EB95E55B620E60E96A72B7
+    unencrypted_suffix: _unencrypted
+    version: 3.8.1

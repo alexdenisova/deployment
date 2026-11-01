@@ -1,0 +1,9 @@
+frontend:
+  image:
+    repository: ghcr.io/alexdenisova/birthday-party-frontend
+    tag: latest
+
+api:
+  image:
+    repository: ghcr.io/alexdenisova/birthday-party-api
+    tag: latest

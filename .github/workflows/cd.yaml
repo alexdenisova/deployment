@@ -65,3 +65,11 @@ jobs:
       #     values_path: "values/kettle-weigher"
       #     release_name: "kettle-weigher"
       #     namespace: "kettle-weigher"
+      - name: Deploy Birthday Party
+        uses: ./.github/actions/deploy
+        if: steps.filter.outputs.birthday-party == 'true' || github.event_name == 'workflow_dispatch'
+        with:
+          helm_chart: "helm-charts/birthday-party"
+          values_path: "values/birthday-party"
+          release_name: "app"
+          namespace: "birthday-party"
