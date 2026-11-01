@@ -1,3 +1,4 @@
+---
 frontend:
   image:
     repository: ghcr.io/alexdenisova/birthday-party-frontend
